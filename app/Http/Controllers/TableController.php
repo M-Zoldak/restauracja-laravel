@@ -12,7 +12,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        //
+        $tables = Table::all();
+        return view("tables.index", ["tables" => $tables]);
     }
 
     /**
@@ -20,7 +21,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        //
+        return view("tables.create");
     }
 
     /**
@@ -28,7 +29,14 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $table = new Table();
+        $table->table_number = $request->get("table_number");
+        $table->places_count = $request->get("places_count");
+        $table->occupied_places_count = 0;
+        $table->is_occupied = $this->table_occupied($table);
+        $table->save();
+
+        return redirect("tables");
     }
 
     /**
@@ -44,7 +52,7 @@ class TableController extends Controller
      */
     public function edit(Table $table)
     {
-        //
+        return view("tables.edit", ["table" => $table]);
     }
 
     /**
@@ -52,7 +60,10 @@ class TableController extends Controller
      */
     public function update(Request $request, Table $table)
     {
-        //
+        $table->table_number = $request->get("table_number");
+        $table->places_count = $request->get("places_count");
+        $table->save();
+        return $this->edit($table);
     }
 
     /**
@@ -60,6 +71,16 @@ class TableController extends Controller
      */
     public function destroy(Table $table)
     {
-        //
+        $table->delete();
+        return $this->index();
+    }
+
+    private function table_occupied(Table $table)
+    {
+        if ($table->occupied_places_count > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
