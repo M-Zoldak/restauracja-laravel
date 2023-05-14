@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('category_id');
             $table->string('name');
             $table->float('price');
-            $table->string('ingredient');
+            $table->string('ingredients');
             $table->string('description');
             $table->boolean('is_available');
             $table->timestamps();

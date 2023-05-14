@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('order_id');
             $table->integer('meal_id');
-            $table->integer('meal_amount');
+            $table->integer('amount');
             $table->timestamps();
         });
     }
