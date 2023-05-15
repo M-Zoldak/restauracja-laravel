@@ -17,6 +17,15 @@ class TableController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function edit_index()
+    {
+        $tables = Table::all();
+        return view("tables.edit_index", ["tables" => $tables]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -44,7 +53,7 @@ class TableController extends Controller
      */
     public function show(Table $table)
     {
-        //
+        return view("tables.show", ["table" => $table]);
     }
 
     /**
@@ -82,5 +91,27 @@ class TableController extends Controller
         } else {
             return 0;
         }
+    }
+
+    public function addPersonToTable(Table $table)
+    {
+        if ($table->occupied_places_count < $table->places_count) {
+            $table->occupied_places_count += 1;
+            $table->is_occupied = $this->table_occupied($table);
+            $table->save();
+        }
+
+        echo json_encode(["occupiedPlaces" => $table->occupied_places_count]);
+    }
+
+    public function removePersonFromTable(Table $table)
+    {
+        if ($table->occupied_places_count > 0) {
+            $table->occupied_places_count -= 1;
+            $table->is_occupied = $this->table_occupied($table);
+            $table->save();
+        }
+
+        echo json_encode(["occupiedPlaces" => $table->occupied_places_count]);
     }
 }

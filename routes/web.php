@@ -24,8 +24,20 @@ Route::get('/', function () {
 });
 
 Route::resource("dishes", DishController::class);
+
 Route::resource("dish_categories", DishCategoryController::class);
+
 Route::resource("orders", OrderController::class);
+
 Route::resource("order_items", OrderItemController::class);
+
 Route::resource("tables", TableController::class);
+Route::get('/tables_edit', [TableController::class, 'edit_index'])->name("tables.edit_index");
+
+
+Route::scopeBindings()->group(function () {
+    Route::get("tables/addPersonToTable/{table}", [TableController::class, "addPersonToTable"])->name("tables.addPersonToTable");
+    Route::get("tables/removePersonFromTable/{table}", [TableController::class, "removePersonFromTable"])->name("tables.removePersonFromTable");
+});
+
 Route::resource("waiters", WaiterController::class);

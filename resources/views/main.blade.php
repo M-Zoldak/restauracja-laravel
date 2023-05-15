@@ -23,13 +23,13 @@
     <aside>
         <p class="mainNav__header">Personel</p>
         <ul>
-            <li><a href="/staff/tables_overview">Obsługa sali</a></li>
+            <li><a href="{{ route('tables.index') }}">Obsługa sali</a></li>
             <li><a href="/management/order_management">Pogląd na zamówienia - Funkcja Mc'Donalds</a></li>
         </ul>
 
         <p class="mainNav__header">Zarządzanie</p>
         <ul>
-            <li><a href="/tables">Edycja stolików</a></li>
+            <li><a href="{{ route('tables.edit_index') }}">Edycja stolików</a></li>
             <li><a href="/management/dishes_management">Edycja dań</a></li>
             <li><a href="/management/waiter_registration">Rejestracja kelnerów</a></li>
         </ul>

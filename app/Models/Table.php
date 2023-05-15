@@ -15,4 +15,9 @@ class Table extends Model
         'is_occupied',
         'occupied_places_count',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'table_id');
+    }
 }

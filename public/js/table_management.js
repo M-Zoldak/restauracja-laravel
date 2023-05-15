@@ -20,7 +20,7 @@ function changeButtonState() {
 }
 
 async function addPersonToTable() {
-    await fetch("/restauracja/addPersonToTable/" + occupiedPlaces.dataset.id)
+    await fetch("/tables/addPersonToTable/" + occupiedPlaces.dataset.id)
         .then((el) => el.json())
         .then((el) => {
             occupiedPlaces.innerText = el.occupiedPlaces;
@@ -30,9 +30,7 @@ async function addPersonToTable() {
 }
 
 async function removePersonFromTable() {
-    await fetch(
-        "/restauracja/removePersonFromTable/" + occupiedPlaces.dataset.id
-    )
+    await fetch("/tables/removePersonFromTable/" + occupiedPlaces.dataset.id)
         .then((el) => el.json())
         .then((el) => {
             occupiedPlaces.innerText = el.occupiedPlaces;
