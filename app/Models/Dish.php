@@ -17,4 +17,9 @@ class Dish extends Model
         'description',
         'is_available',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(DishCategory::class, 'category_id');
+    }
 }
