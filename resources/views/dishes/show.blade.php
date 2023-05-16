@@ -3,6 +3,7 @@
 
     <div class="buttons__container">
         <a class="button" href="/dishes/create">Dodaj danie</a>
+        <a class="button" href="/dish_categories">Kategorie</a>
     </div>
     <br>
     <div class='dishes-container-nav'>

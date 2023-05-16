@@ -12,7 +12,8 @@ class DishCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = DishCategory::all();
+        return view('dish_categories.show',['categories'=>$categories]);
     }
 
     /**
@@ -44,7 +45,7 @@ class DishCategoryController extends Controller
      */
     public function edit(DishCategory $dishCategory)
     {
-        //
+        return view('dish_categories.edit', ['category'=>$dishCategory]);
     }
 
     /**
@@ -52,7 +53,9 @@ class DishCategoryController extends Controller
      */
     public function update(Request $request, DishCategory $dishCategory)
     {
-        //
+        $dishCategory->name = $request->input("name");
+        $dishCategory->save();
+        return $this->index();
     }
 
     /**
