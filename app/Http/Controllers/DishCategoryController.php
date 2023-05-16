@@ -21,7 +21,7 @@ class DishCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dish_categories.create');
     }
 
     /**
@@ -29,7 +29,10 @@ class DishCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dishCategory = new DishCategory();
+        $dishCategory->name = $request->input("name");
+        $dishCategory->save();
+        return $this->index();
     }
 
     /**
