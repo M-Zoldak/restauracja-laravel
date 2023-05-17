@@ -24,7 +24,7 @@
         <p class="mainNav__header">Personel</p>
         <ul>
             <li><a href="{{ route('tables.index') }}">Obsługa sali</a></li>
-            <li><a href="/management/order_management">Pogląd na zamówienia - Funkcja Mc'Donalds</a></li>
+            <li><a href="{{ route('orders.index') }}">Pogląd na zamówienia - Funkcja Mc'Donalds</a></li>
         </ul>
 
         <p class="mainNav__header">Zarządzanie</p>

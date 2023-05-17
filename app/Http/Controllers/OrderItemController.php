@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dish;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,11 @@ class OrderItemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $dishes = Dish::all();
+        $id = $request->input('order_id');
+        return view('order_items.create', ['dishes'=>$dishes, 'id'=>$id]);
     }
 
     /**
@@ -28,7 +31,13 @@ class OrderItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->input('order_id');
+        $orderItem = new OrderItem();
+        $orderItem->order_id = $id;
+        $orderItem->meal_id = $request->input("dish");
+        $orderItem->amount = $request->input("amount");
+        $orderItem->save();
+        return redirect('orders');
     }
 
     /**
@@ -44,7 +53,8 @@ class OrderItemController extends Controller
      */
     public function edit(OrderItem $orderItem)
     {
-        //
+        $dishes = Dish::all();
+        return view('order_items.edit',['orderItem'=>$orderItem, 'dishes'=>$dishes]);
     }
 
     /**
@@ -52,7 +62,10 @@ class OrderItemController extends Controller
      */
     public function update(Request $request, OrderItem $orderItem)
     {
-        //
+        $orderItem->meal_id = $request->input("dish");
+        $orderItem->amount = $request->input("amount");
+        $orderItem->save();
+        return redirect('orders');
     }
 
     /**
@@ -60,6 +73,7 @@ class OrderItemController extends Controller
      */
     public function destroy(OrderItem $orderItem)
     {
-        //
+        $orderItem->delete();
+        return redirect('orders');
     }
 }

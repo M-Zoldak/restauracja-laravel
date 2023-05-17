@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dish;
+use App\Models\DishCategory;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,15 +16,22 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        $tables = Table::all();
+        return view('orders.index', ['orders'=>$orders, 'tables'=>$tables]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $tableNr = $request->input("id");
+        $dishes = Dish::all();
+        $categories = DishCategory::all();
+        return view('orders.create',['dishes'=> $dishes,
+                                    'categories'=>$categories,
+                                    'tableNr'=> $tableNr]);
     }
 
     /**
@@ -28,7 +39,36 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tableNr = $request->input("id");
+        $orderDetails = $request->input("order-details");
+
+        $order = new Order();
+        $order->table_id = $tableNr;
+        $order->order_status = 1;
+        $order->save();
+
+        $orderDetails = json_decode($orderDetails, true);
+        $this->addOrderItems($order->id, $orderDetails);
+        return $this->index();
+    }
+
+    private function addOrderItems($orderId, $data)
+    {
+        foreach ($data as $key) {
+            foreach ($key as $value) {
+                $this->addOneOrderItem($orderId, $value['mealId'], $value['amount']);
+
+            }
+        }
+    }
+
+    private function addOneOrderItem($orderId, $mealId, $meal_amount)
+    {
+        $orderItem = new OrderItem();
+        $orderItem->order_id = $orderId;
+        $orderItem->meal_id = $mealId;
+        $orderItem->amount = $meal_amount;
+        $orderItem->save();
     }
 
     /**
@@ -36,7 +76,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('orders.show',['order'=> $order]);
     }
 
     /**
@@ -60,6 +100,11 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        foreach($order->items as $orderItem)
+        {
+            $orderItem->delete();
+        }
+        $order->delete();
+        return $this->index();
     }
 }
