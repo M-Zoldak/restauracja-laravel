@@ -355,16 +355,25 @@ p.mainNav__header + ul li a {
     cursor: move;
 }
 
-.number-input
-{
+.number-input {
     width: 10rem;
     text-align: center;
 }
 
 .number-input,
-.custom-select
-{
+.custom-select {
     font-size: 1.3rem;
     border-radius: 10px;
     padding: 2px;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.links {
+    display: inline-flex;
+    margin-left: auto;
+    gap: 1rem;
 }

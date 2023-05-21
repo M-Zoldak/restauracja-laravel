@@ -19,31 +19,25 @@
 </head>
 
 <body>
-    {{-- <?php if (isLoggedIn()) : ?> --}}
     <aside>
-        <p class="mainNav__header">Personel</p>
-        <ul>
-            <li><a href="{{ route('tables.index') }}">Obsługa sali</a></li>
-            <li><a href="{{ route('orders.index') }}">Pogląd na zamówienia - Funkcja Mc'Donalds</a></li>
-        </ul>
-
-        <p class="mainNav__header">Zarządzanie</p>
-        <ul>
-            <li><a href="{{ route('tables.edit_index') }}">Edycja stolików</a></li>
-            <li><a href="{{ route('dishes.index') }}">Edycja dań</a></li>
-            <li><a href="{{ route('waiters.index') }}">Kelnerzy</a></li>
-            <li><a href="{{ route('waiters.create') }}">Rejestracja kelnerów</a></li>
-        </ul>
+        @if (Auth::check())
+            @include('partials.nav')
+        @else
+            <p>Portal jedynie dla zalogowanych użytkowników.</p>
+        @endif
     </aside>
 
-    {{-- <?php endif; ?> --}}
-
     <div class="main-container">
-        <div class="user-info"><?= $_COOKIE['loggedInAs'] ?? '' ?></div>
+
+        @if (Auth::check())
+            @include('partials.user-info')
+        @endif
+
         <header>
-            <h1><?= $pageTitle ?? '' ?></h1>
+            <h1><?= $pageTitle ?? 'Page Title' ?></h1>
         </header>
-        {{-- <?= Messager::readNotifications() ?> --}}
+
+        @include('partials.notifications')
 
         @yield('content')
     </div>

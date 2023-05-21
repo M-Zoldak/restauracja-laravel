@@ -1,13 +1,11 @@
 let occupiedPlaces = document.querySelector(".occupiedPlaces");
 let tableOccupiedText = document.querySelector(".table-occupied");
 let order = document.querySelector(".order-button");
-console.log(order);
 
 function changeButtonState() {
     switch (occupiedPlaces.innerText) {
         case 0:
         case "0":
-            console.log("0?");
             order.classList.add("blocked");
             tableOccupiedText.innerText = "wolny";
             order.setAttribute("disabled", true);

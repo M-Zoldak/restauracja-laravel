@@ -19,7 +19,8 @@
                         class="add-button button">+</button></td>
             </tr>
         </table>
-        <a class="button order-button" href='{{route("orders.create", ["id"=>$table->id])}}' id='{{ $table->id }}'>Zamów</a>
+        <a class="button order-button" href='{{ route('orders.create', ['id' => $table->id]) }}'
+            id='{{ $table->id }}'>Zamów</a>
     </div>
 
     <div class="order-list-conteiner">

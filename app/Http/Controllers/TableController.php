@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class TableController extends Controller
 {
@@ -38,14 +40,25 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'table_number' => 'required',
+            'places_count' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('tables/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $table = new Table();
         $table->table_number = $request->get("table_number");
         $table->places_count = $request->get("places_count");
         $table->occupied_places_count = 0;
-        $table->is_occupied = $this->table_occupied($table);
+        $table->is_occupied = $this->is_table_occupied($table);
         $table->save();
 
-        return redirect("tables");
+        return Redirect::route("tables.edit_index")->with('confirmation', 'Utworzono nowy stolik.');;
     }
 
     /**
@@ -84,7 +97,7 @@ class TableController extends Controller
         return $this->index();
     }
 
-    private function table_occupied(Table $table)
+    private function is_table_occupied(Table $table)
     {
         if ($table->occupied_places_count > 0) {
             return 1;
@@ -97,7 +110,7 @@ class TableController extends Controller
     {
         if ($table->occupied_places_count < $table->places_count) {
             $table->occupied_places_count += 1;
-            $table->is_occupied = $this->table_occupied($table);
+            $table->is_occupied = $this->is_table_occupied($table);
             $table->save();
         }
 
@@ -108,7 +121,7 @@ class TableController extends Controller
     {
         if ($table->occupied_places_count > 0) {
             $table->occupied_places_count -= 1;
-            $table->is_occupied = $this->table_occupied($table);
+            $table->is_occupied = $this->is_table_occupied($table);
             $table->save();
         }
 
