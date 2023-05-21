@@ -58,7 +58,7 @@ class TableController extends Controller
         $table->is_occupied = $this->is_table_occupied($table);
         $table->save();
 
-        return Redirect::route("tables.edit_index")->with('confirmation', 'Utworzono nowy stolik.');;
+        return Redirect::route("tables.edit_index")->with('confirmation', 'Utworzono nowy stolik.');
     }
 
     /**
