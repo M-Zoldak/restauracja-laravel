@@ -19,14 +19,16 @@
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" />
-            <x-input-error />
+            <x-text-input id="name" name="name" type="text" :value="old('name', $user->name)" required autofocus
+                autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" />
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" />
-            <x-input-error />
+            <x-text-input id="email" name="email" type="email" :value="old('email', $user->email)" required
+                autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                 <div>

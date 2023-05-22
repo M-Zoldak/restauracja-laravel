@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+    <x-header>Podgląd stolika</x-header>
     <div class="table-status">
         <h2>Stolik nr: {{ $table->table_number }}</h2>
         <table>

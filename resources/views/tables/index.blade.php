@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+    <x-header>Przegląd stolików</x-header>
     <div class="tables">
         @if (empty($tables))
             <h2>Brak stolików do obsługi!</h2>

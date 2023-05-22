@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+    <x-header>Edycja stolika</x-header>
     <div class="new-table">
         <form method="POST" action="{{ route('tables.update', ['table' => $table->id]) }}">
             @csrf

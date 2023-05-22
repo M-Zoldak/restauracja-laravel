@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::resource("tables", TableController::class);
     Route::get('/tables_edit', [TableController::class, 'edit_index'])->name("tables.edit_index");
 
-
     Route::scopeBindings()->group(function () {
         Route::get("tables/addPersonToTable/{table}", [TableController::class, "addPersonToTable"])->name("tables.addPersonToTable");
         Route::get("tables/removePersonFromTable/{table}", [TableController::class, "removePersonFromTable"])->name("tables.removePersonFromTable");

@@ -1,5 +1,6 @@
 @section('content')
     @extends('main')
+    <x-header>Resetowanie hasła</x-header>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -32,10 +32,6 @@
         @if (Auth::check())
             @include('partials.user-info')
         @endif
-
-        <header>
-            <h1><?= $pageTitle ?? 'Page Title' ?></h1>
-        </header>
 
         @include('partials.notifications')
 

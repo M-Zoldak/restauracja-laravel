@@ -34,9 +34,9 @@
             </div>
 
             <div>
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-primary-button x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-primary-button>
 
                 <x-danger-button>
                     {{ __('Delete Account') }}

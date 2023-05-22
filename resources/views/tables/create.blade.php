@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
+    <x-header>Tworzenie nowego stolika</x-header>
     <div class="new-table">
-        <h1>Nowy stolik</h1>
         <table>
             <form method="POST" action={{ route('tables.store') }}>
                 @csrf

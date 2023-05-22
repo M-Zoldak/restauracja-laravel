@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+    <x-header>Edycja stolików</x-header>
     <div class="buttons__container">
         <a class="button" href="{{ route('tables.create') }}">Dodaj stolik</a>
     </div>

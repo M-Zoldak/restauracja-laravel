@@ -1,5 +1,6 @@
 @section('content')
     @extends('main')
+    <x-header>Rejestracja</x-header>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

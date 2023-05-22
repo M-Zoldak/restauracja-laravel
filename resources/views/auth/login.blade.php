@@ -2,6 +2,7 @@
     @extends('main')
     <!-- Session Status -->
     <x-auth-session-status />
+    <x-header>Logowanie</x-header>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
