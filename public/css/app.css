@@ -226,12 +226,12 @@ p.mainNav__header + ul li a {
 }
 
 .table.is_occupied {
-    background-color: green;
+    background-color: #97bd36ff;
     color: white;
 }
 
 .table.is_occupied:hover {
-    background-color: rgb(48, 138, 48);
+    background-color: #97bd36;
 }
 
 .table span {
