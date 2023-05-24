@@ -8,7 +8,7 @@
             <table>
                 <tr>
                     <td>Numer stolika</td>
-                    <td><input type=" text" name="table_number" required value="{{ $table->table_number }}" /></td>
+                    <td><input type="number" name="table_number" required value="{{ $table->table_number }}" /></td>
                 </tr>
                 <tr>
                     <td>Liczba miejsc</td>

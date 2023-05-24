@@ -14,6 +14,8 @@
                 autocomplete="username" />
         </div>
 
+        <br>
+
         <!-- Password -->
         <div>
             <x-input-label for="password" :value="__('Password')" />
@@ -21,6 +23,7 @@
             <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
         </div>
 
+        <br>
         <!-- Remember Me -->
         <div>
             <label for="remember_me">
@@ -29,17 +32,18 @@
             </label>
         </div>
 
+        <br>
         <x-primary-button>
             {{ __('Zaloguj') }}
         </x-primary-button>
-        <div>
-            <a href="{{ route('password.request') }}">
-                {{ __('Zapomniałeś hasła?') }}
-            </a>
-            <a href="{{ route('register') }}">
-                {{ __('Stwórz konto') }}
-            </a>
-
-        </div>
     </form>
+    <div>
+        <a href="{{ route('password.request') }}">
+            {{ __('Zapomniałeś hasła?') }}
+        </a> |
+        <a href="{{ route('register') }}">
+            {{ __('Stwórz konto') }}
+        </a>
+
+    </div>
 @endsection

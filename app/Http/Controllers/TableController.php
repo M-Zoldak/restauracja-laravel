@@ -41,12 +41,12 @@ class TableController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'table_number' => 'required',
-            'places_count' => 'required'
+            'table_number' => "required|unique:tables,table_number|int|min:1",
+            'places_count' => 'required|int|min:0'
         ]);
 
         if ($validator->fails()) {
-            return redirect('tables/create')
+            return Redirect::route('tables.create')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -82,10 +82,21 @@ class TableController extends Controller
      */
     public function update(Request $request, Table $table)
     {
+        $validator = Validator::make($request->all(), [
+            'table_number' => "required|unique:tables,table_number,$table->id|int|min:1",
+            'places_count' => 'required|int|min:0'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::route('tables.edit', $table)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $table->table_number = $request->get("table_number");
         $table->places_count = $request->get("places_count");
         $table->save();
-        return $this->edit($table);
+        return Redirect::route("tables", $table)->with("confirmation", "Zaktualizowano stolik.");
     }
 
     /**

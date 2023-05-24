@@ -11,3 +11,5 @@
     <li><a href="{{ route('waiters.index') }}">Kelnerzy</a></li>
     <li><a href="{{ route('waiters.create') }}">Rejestracja kelnerów</a></li>
 </ul>
+
+<div class="space_eater"></div>

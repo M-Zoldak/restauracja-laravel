@@ -7,7 +7,7 @@
                 @csrf
                 <tr>
                     <td>Numer stolika</td>
-                    <td><input type=" text" name="table_number" required />
+                    <td><input type="number" name="table_number" required />
                     </td>
                 </tr>
                 <tr>

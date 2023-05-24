@@ -1038,6 +1038,7 @@
     "Thanks for your continued support. We've attached a copy of your invoice for your records. Please let us know if you have any questions or concerns.": "Dzięki za nieustające wsparcie. Załączamy kopię Twojej faktury dla Twojej dokumentacji. Daj nam znać, jeśli masz jakiekolwiek pytania lub wątpliwości.",
     "Thanks!": "Dzięki!",
     "Thanks,": "Dzięki,",
+    "The :attribute has already been taken.": "Pole :attribute jest już zajęte.",
     "The :attribute must be a valid role.": "Pole :attribute musi być prawidłową rolą.",
     "The :attribute must be at least :length characters and contain at least one number.": "Pole :attribute musi mieć przynajmniej :length znaków i przynajmniej jedną cyfrę.",
     "The :attribute must be at least :length characters and contain at least one special character and one number.": ":Attribute musi mieć co najmniej :length znaki i zawierać co najmniej jeden znak specjalny i jeden numer.",
