@@ -58,7 +58,7 @@ class TableController extends Controller
         $table->is_occupied = $this->is_table_occupied($table);
         $table->save();
 
-        return Redirect::route("tables.edit_index")->with('confirmation', 'Utworzono nowy stolik.');
+        return Redirect::route("tables.edit_index")->with('confirmation', "Utworzono nowy stolik o numerze $table->table_number.");
     }
 
     /**
@@ -96,7 +96,7 @@ class TableController extends Controller
         $table->table_number = $request->get("table_number");
         $table->places_count = $request->get("places_count");
         $table->save();
-        return Redirect::route("tables", $table)->with("confirmation", "Zaktualizowano stolik.");
+        return Redirect::route("tables.edit", $table)->with("confirmation", "Zaktualizowano stolik.");
     }
 
     /**
@@ -105,7 +105,7 @@ class TableController extends Controller
     public function destroy(Table $table)
     {
         $table->delete();
-        return $this->index();
+        return Redirect::route("tables.edit_index")->with("confirmation", "Usunięto stolik o numerze $table->table_number");
     }
 
     private function is_table_occupied(Table $table)

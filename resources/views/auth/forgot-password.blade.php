@@ -14,9 +14,12 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
+            <br>
             <x-text-input id="email" required autofocus />
+            <br>
             <x-input-error :messages="$errors->get('email')" />
         </div>
+        <br>
 
         <div>
             <x-primary-button>

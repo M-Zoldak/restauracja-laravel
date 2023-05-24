@@ -1,5 +1,6 @@
 @section('content')
     @extends('main')
+    <x-header>Profil</x-header>
     <x-slot name="header">
         <h2>
             {{ __('Profile') }}
