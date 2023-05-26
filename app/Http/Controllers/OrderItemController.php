@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrderItemController extends Controller
 {
@@ -31,7 +32,21 @@ class OrderItemController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required|numeric|min:0'
+        ]);
+
         $id = $request->input('order_id');
+
+        //return redirect("order_items/create?order_id='$id'")
+
+        if ($validator->fails()) {
+            return redirect()->route('order_items.create', ["order_id"=>$id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
         $orderItem = new OrderItem();
         $orderItem->order_id = $id;
         $orderItem->meal_id = $request->input("dish");
@@ -62,6 +77,16 @@ class OrderItemController extends Controller
      */
     public function update(Request $request, OrderItem $orderItem)
     {
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required|numeric|min:0'
+        ]);
+// return redirect("order_items/$orderItem->id/edit")
+        if ($validator->fails()) {
+            return redirect()->route("order_items.edit", $orderItem)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $orderItem->meal_id = $request->input("dish");
         $orderItem->amount = $request->input("amount");
         $orderItem->save();

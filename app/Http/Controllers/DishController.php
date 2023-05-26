@@ -79,6 +79,19 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'ingredient' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric|min:0'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('dishes.edit', $dish)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $dish->name = $request->input("name");
         $dish->ingredients = $request->input("ingredient");
         $dish->description = $request->input("description");
