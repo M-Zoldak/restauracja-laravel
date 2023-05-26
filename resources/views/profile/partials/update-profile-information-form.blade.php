@@ -8,6 +8,7 @@
             {{ __("Update your account's profile information and email address.") }}
         </p>
     </header>
+    <br>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
@@ -23,6 +24,7 @@
                 autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" />
         </div>
+        <br>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -48,6 +50,7 @@
                 </div>
             @endif
         </div>
+        <br>
 
         <div>
             <x-primary-button>{{ __('Save') }}</x-primary-button>

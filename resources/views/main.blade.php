@@ -23,7 +23,9 @@
         @if (Auth::check())
             @include('partials.nav')
         @else
-            <p>Portal jedynie dla zalogowanych użytkowników.</p>
+            <h3>Dostęp użytkownika testowego:</h3>
+            <p>E-mail: <strong>test@wsb-nlu.pl</strong></p>
+            <p>Hasło: <strong>1234</strong></p>
         @endif
     </aside>
 
