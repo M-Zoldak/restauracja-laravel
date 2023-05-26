@@ -24,7 +24,6 @@
                             Edytuj
                         </a>
                     </td>
-                    <td>Usuń</td>
                 </tr>
                 @endforeach
             </tbody>

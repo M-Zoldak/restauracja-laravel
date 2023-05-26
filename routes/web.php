@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource("orders", OrderController::class);
 
+    Route::scopeBindings()->group(function () {
+        Route::get("order/updateOrderStatus/{order}/{status}", [OrderController::class, "updateOrderStatus"])->name("orders.updateOrderStatus");
+    });
+
     Route::resource("order_items", OrderItemController::class);
 
     Route::resource("tables", TableController::class);

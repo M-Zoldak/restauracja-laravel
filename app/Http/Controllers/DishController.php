@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\DishCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DishController extends Controller
 {
@@ -32,6 +33,19 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'ingredient' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric|min:0'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('dishes/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $dish = new Dish;
         $dish->name = $request->input("name");
         $dish->ingredients = $request->input("ingredient");

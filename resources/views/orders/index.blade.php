@@ -1,7 +1,7 @@
 @section('content')
 @extends('main')
 
-
+@inject('controller', 'App\Http\Controllers\OrderController')
 
 <div class="order-list-conteiner">
     <ul class="order-list-ul">
@@ -27,7 +27,7 @@
                             @endforeach
                         </table>
                         <div class="order-status">
-                            <p id="status{{ $order->id }}">Status: {{ $order->order_status }}</p>
+                            <p id="status{{ $order->id }}">{{$controller::getOrderStatusString($order->order_status)}}</p>
                             <button id="{{ $order->id }}" class="status-button">Zamówienie gotowe</button>
                             <div id="delete{{ $order->id }}" class="confirm-hidden">
                                 <form action="{{route('orders.destroy',['order' => $order])}}" method="post">

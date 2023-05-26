@@ -8,6 +8,14 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+enum OrderStatus: int
+{
+    case inProgress = 1;
+    case ready = 2;
+    case delivered = 3;
+}
 
 class OrderController extends Controller
 {
@@ -26,6 +34,7 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
+
         $tableNr = $request->input("id");
         $dishes = Dish::all();
         $categories = DishCategory::all();
@@ -44,12 +53,12 @@ class OrderController extends Controller
 
         $order = new Order();
         $order->table_id = $tableNr;
-        $order->order_status = 1;
+        $order->order_status = OrderStatus::inProgress;
         $order->save();
 
         $orderDetails = json_decode($orderDetails, true);
         $this->addOrderItems($order->id, $orderDetails);
-        return $this->index();
+        return redirect('orders');
     }
 
     private function addOrderItems($orderId, $data)
@@ -57,7 +66,6 @@ class OrderController extends Controller
         foreach ($data as $key) {
             foreach ($key as $value) {
                 $this->addOneOrderItem($orderId, $value['mealId'], $value['amount']);
-
             }
         }
     }
@@ -105,6 +113,28 @@ class OrderController extends Controller
             $orderItem->delete();
         }
         $order->delete();
-        return $this->index();
+        return redirect('orders');
+    }
+
+    //orders/updateOrderStatus/{orderId}/{status}
+    public function updateOrderStatus(Order $order, int $status)
+    {
+        $order->order_status = $status;
+        $order->save();
+    }
+
+    public static function getOrderStatusString(int $status): string
+    {
+        $status;
+        switch ($status) {
+            case OrderStatus::inProgress->value:
+                return 'In Progress';
+            case OrderStatus::ready->value:
+                return 'Ready';
+            case OrderStatus::delivered->value:
+                return 'Delivered';
+            default:
+                return 'Unknown';
+        }
     }
 }
