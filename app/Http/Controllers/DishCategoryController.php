@@ -79,7 +79,7 @@ class DishCategoryController extends Controller
 
         $dishCategory->name = $request->input("name");
         $dishCategory->save();
-        return redirect('index');
+        return redirect('dish_categories');
     }
 
     /**
