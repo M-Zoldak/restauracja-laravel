@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -34,7 +35,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('confirmation', 'Profil został zaktualizowany.');
     }
 
     /**
@@ -42,9 +43,14 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
+        $validator = Validator::make($request->all(), [
             'password' => ['required', 'current_password'],
         ]);
+
+        if ($validator->fails()) {
+            return redirect('/profile')
+                ->withErrors($validator);
+        }
 
         $user = $request->user();
 

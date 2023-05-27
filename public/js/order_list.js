@@ -19,7 +19,7 @@ function buttonClick(button, id)
 {
     console.log("click");
     const statusText = document.getElementById(`status${id}`);
-    switch(statusText.textContent)
+    switch(statusText.textContent.trim())
     {
         case "In Progress":
             console.log("In progress");

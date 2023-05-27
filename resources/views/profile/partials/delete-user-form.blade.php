@@ -18,7 +18,6 @@
 
             <x-text-input id="password" name="password" type="password" placeholder="{{ __('Password') }}" />
             (1234 - dla Testowego użytkownika)
-            <x-input-error :messages="$errors->userDeletion->get('password')" />
         </div>
         <br>
         <x-danger-button>{{ __('Delete Account') }}</x-danger-button>
