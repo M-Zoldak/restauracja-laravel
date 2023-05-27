@@ -1,6 +1,7 @@
 @section('content')
 @extends('main')
 
+<x-header>Wszystkie kategorie</x-header>
     <div class="buttons__container">
         <a class="button" href="dish_categories/create">Dodaj kategorie</a>
     </div>

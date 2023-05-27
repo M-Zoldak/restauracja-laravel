@@ -1,6 +1,8 @@
 @section('content')
 @extends('main')
 
+<x-header>Zamówienie dla stolika {{$tableNr}}</x-header>
+
 <div id="modal-window" class="confirm-hidden">
     <div class="confirm-message">
         <h3>Potwierdź zamowienie</h3>
@@ -13,11 +15,8 @@
     </div>
     <div class="blurred"></div>
 </div>
+
 <div>
-    <h2>Stolik nr: {{$tableNr}} </h2>
-</div>
-<div>
-    <h2>Dodaj zamówienie</h2>
     <div class='dishes-container-nav'>
         <ul>
             @foreach ($categories as $item)

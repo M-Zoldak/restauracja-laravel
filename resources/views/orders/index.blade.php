@@ -3,6 +3,8 @@
 
 @inject('controller', 'App\Http\Controllers\OrderController')
 
+<x-header>Zamówienia</x-header>
+
 <div class="order-list-conteiner">
     <ul class="order-list-ul">
         @foreach($tables as $table)

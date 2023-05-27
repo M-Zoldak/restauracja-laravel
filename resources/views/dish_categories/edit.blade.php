@@ -1,8 +1,8 @@
 @section('content')
 @extends('main')
 
+<x-header>Edycja kategorii: {{$category->name}}</x-header>
 <div class="new-dish">
-    <h2>Edytowane danie: {{$category->name}}</h2>
     <table class="new-dish-table">
         <form method="POST" action="{{route('dish_categories.update', $category)}}">
             @csrf

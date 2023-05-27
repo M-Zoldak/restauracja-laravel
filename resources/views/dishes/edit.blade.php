@@ -1,8 +1,8 @@
 @section('content')
 @extends('main')
 
+<x-header>Edycja dania: {{$dish->name}}</x-header>
 <div class="new-dish">
-    <h2>Edytowane danie: {{$dish->name}}</h2>
     <table class="new-dish-table">
         <form method="POST" action="{{route('dishes.update', $dish)}}">
             @csrf

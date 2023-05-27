@@ -1,8 +1,8 @@
 @section('content')
 @extends('main')
 
+<x-header>Nowe danie</x-header>
 <div class="new-dish">
-    <h1>Nowe Danie</h1>
     <table class="new-dish-table">
         <form action="{{route('dishes.store')}}" method="POST">
             @csrf

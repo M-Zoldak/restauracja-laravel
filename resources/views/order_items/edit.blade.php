@@ -1,6 +1,7 @@
 @section('content')
 @extends('main')
 
+<x-header>Edytuj pozycję</x-header>
 <div class="order-list-conteiner">
     <div>
         <table class="order-list-table">

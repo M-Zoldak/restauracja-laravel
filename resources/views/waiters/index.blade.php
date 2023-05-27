@@ -1,6 +1,8 @@
 @section('content')
 @extends('main')
 
+<x-header>Kelnerzy</x-header>
+
     <div class="buttons__container">
         <a class="button" href="{{route('waiters.create')}}">Dodaj kelnera</a>
     </div>

@@ -1,6 +1,7 @@
 @section('content')
 @extends('main')
 
+<x-header>Nowa pozycja</x-header>
 <div class="order-list-conteiner">
     <div>
         <form action="{{route('order_items.store',["order_id"=>$id])}}" method="post">

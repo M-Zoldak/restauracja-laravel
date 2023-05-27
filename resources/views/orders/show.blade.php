@@ -1,10 +1,9 @@
 @section('content')
 @extends('main')
 
+<x-header>Zamówienie nr:{{ $order->id }}</x-header>
 <div class="order-list-conteiner">
     <div>
-        {{-- <a href="{{route('orders.destroy',['order' => $order])}}">Szczegóły</a> --}}
-        <h3>Zamówienie nr:{{ $order->id }}</h3>
         <table class="order-list-table">
             <tr>
                 <td colspan="2">Dla stolika nr: </td>
