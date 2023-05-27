@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DishCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DishCategoryController extends Controller
 {
@@ -29,6 +30,16 @@ class DishCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('dish_categories/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $dishCategory = new DishCategory();
         $dishCategory->name = $request->input("name");
         $dishCategory->save();
@@ -56,9 +67,19 @@ class DishCategoryController extends Controller
      */
     public function update(Request $request, DishCategory $dishCategory)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('dish_categories.edit', $dishCategory)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $dishCategory->name = $request->input("name");
         $dishCategory->save();
-        return $this->index();
+        return redirect('index');
     }
 
     /**
