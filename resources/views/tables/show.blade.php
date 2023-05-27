@@ -1,5 +1,7 @@
 @extends('main')
 @section('content')
+    @inject('controller', 'App\Http\Controllers\OrderController')
+
     <x-header>Podgląd stolika</x-header>
     <div class="table-status">
         <h2>Stolik nr: {{ $table->table_number }}</h2>
@@ -29,6 +31,7 @@
             @foreach ($table->orders as $order)
                 <li class="draggable" draggable="true">
                     <div>
+                        <a href="{{ route('orders.show', ['order' => $order]) }}">Szczegóły</a>
                         <h3>Zamówienie nr:{{ $order->id }}</h3>
                         <table class="order-list-table">
                             <tr>
@@ -46,13 +49,12 @@
                             @endforeach
                         </table>
                         <div class="order-status">
-                            <p id="status{{ $order->id }}">Status: {{ $order->order_status }}</p>
+                            <p id="status{{ $order->id }}">{{ $controller::getOrderStatusString($order->order_status) }}</p>
                             <button id="{{ $order->id }}" class="status-button">Zamówienie gotowe</button>
                             <div id="delete{{ $order->id }}" class="confirm-hidden">
-                                <form action="{{-- route('orders.destroy') --}}" method="post">
-
+                                <form action="{{ route('orders.destroy', ['order' => $order]) }}" method="post">
                                     @csrf
-                                    {{-- @method('DELETE') --}}
+                                    @method('DELETE')
                                     <input id="order-detail" type="hidden" name="delete-order"
                                         value="{{ $order->id }}">
                                     <input type="submit" value="Usuń z listy">
@@ -64,6 +66,8 @@
             @endforeach
         </ul>
     </div>
+
+
 
     <script src={{ asset('js/table_management.js') }}></script>
     <script src={{ asset('js/order_list.js') }}></script>

@@ -22,7 +22,6 @@
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" :value="old('name', $user->name)" required autofocus
                 autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" />
         </div>
         <br>
 
@@ -30,7 +29,6 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" :value="old('email', $user->email)" required
                 autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                 <div>
@@ -42,11 +40,6 @@
                         </button>
                     </p>
 
-                    @if (session('status') === 'verification-link-sent')
-                        <p>
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
                 </div>
             @endif
         </div>
@@ -54,10 +47,6 @@
 
         <div>
             <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">{{ __('Saved.') }}</p>
-            @endif
         </div>
     </form>
 </section>
