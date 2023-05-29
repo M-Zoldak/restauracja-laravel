@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Waiter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
 
 class WaiterController extends Controller
@@ -31,16 +32,28 @@ class WaiterController extends Controller
      */
     public function store(Request $request)
     {
-        if($this->isLoginFree($request->input("login")))
-        {
-            $waiter = new Waiter();
-            $waiter->firstname = $request->input("firstname");
-            $waiter->lastname = $request->input("lastname");
-            $waiter->email = $request->input("email");
-            $waiter->login = $request->input("login");
-            $waiter->password = password_hash($request->input("password"), PASSWORD_DEFAULT);
-            $waiter->save();
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'login' => 'unique:waiters,login',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('waiters/create')
+                ->withErrors($validator)
+                ->withInput();
         }
+
+        $waiter = new Waiter();
+        $waiter->firstname = $request->input("firstname");
+        $waiter->lastname = $request->input("lastname");
+        $waiter->email = $request->input("email");
+        $waiter->login = $request->input("login");
+        $waiter->password = password_hash($request->input("password"), PASSWORD_DEFAULT);
+        $waiter->save();
+
         return $this->index();
     }
 
@@ -65,20 +78,30 @@ class WaiterController extends Controller
      */
     public function update(Request $request, Waiter $waiter)
     {
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'login' => 'unique:waiters,login,' . $waiter->id,
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('waiters.edit', ['waiter'=>$waiter])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         if($request->input("password"))
         {
             $waiter->password = password_hash($request->input("password"), PASSWORD_DEFAULT);
         }
 
-        $login = $request->input("login");
-        if($this->isLoginFree($login) || $login == $waiter->login)
-        {
-            $waiter->firstname = $request->input("firstname");
-            $waiter->lastname = $request->input("lastname");
-            $waiter->email = $request->input("email");
-            $waiter->login = $request->input("login");
-            $waiter->save();
-        }
+        $waiter->firstname = $request->input("firstname");
+        $waiter->lastname = $request->input("lastname");
+        $waiter->email = $request->input("email");
+        $waiter->login = $request->input("login");
+        $waiter->save();
+
         return $this->index();
     }
 
@@ -89,14 +112,5 @@ class WaiterController extends Controller
     {
         $waiter->delete();
         return $this->index();
-    }
-
-    private function isLoginFree($login)
-    {
-        if(Waiter::where('login', $login)->exists())
-        {
-            return false;
-        }
-        return true;
     }
 }

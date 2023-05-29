@@ -8,7 +8,6 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Table;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 enum OrderStatus: int
 {

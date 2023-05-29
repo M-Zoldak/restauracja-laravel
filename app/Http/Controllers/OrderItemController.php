@@ -38,14 +38,11 @@ class OrderItemController extends Controller
 
         $id = $request->input('order_id');
 
-        //return redirect("order_items/create?order_id='$id'")
-
         if ($validator->fails()) {
             return redirect()->route('order_items.create', ["order_id"=>$id])
                 ->withErrors($validator)
                 ->withInput();
         }
-
 
         $orderItem = new OrderItem();
         $orderItem->order_id = $id;
@@ -80,7 +77,7 @@ class OrderItemController extends Controller
         $validator = Validator::make($request->all(), [
             'amount' => 'required|numeric|min:0'
         ]);
-// return redirect("order_items/$orderItem->id/edit")
+
         if ($validator->fails()) {
             return redirect()->route("order_items.edit", $orderItem)
                 ->withErrors($validator)
