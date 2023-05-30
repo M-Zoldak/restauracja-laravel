@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dish;
 use App\Models\DishCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -31,7 +32,7 @@ class DishCategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:dish_categories,name',
         ]);
 
         if ($validator->fails()) {
@@ -43,7 +44,7 @@ class DishCategoryController extends Controller
         $dishCategory = new DishCategory();
         $dishCategory->name = $request->input("name");
         $dishCategory->save();
-        return $this->index();
+        return redirect('dish_categories');
     }
 
     /**
@@ -68,7 +69,7 @@ class DishCategoryController extends Controller
     public function update(Request $request, DishCategory $dishCategory)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:dish_categories,name,'.$dishCategory->id,
         ]);
 
         if ($validator->fails()) {
@@ -87,6 +88,18 @@ class DishCategoryController extends Controller
      */
     public function destroy(DishCategory $dishCategory)
     {
-        //
+        $items = Dish::all();
+        foreach($items as $elem)
+        {
+            if($elem->category_id == $dishCategory->id)
+            {
+                return redirect()->route('dish_categories.edit', $dishCategory)
+                    ->withErrors("Do kategorii przypisane są dania")
+                    ->withInput();
+            }
+        }
+
+        $dishCategory->delete();
+        return redirect('dish_categories');
     }
 }
