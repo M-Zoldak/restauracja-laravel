@@ -14,7 +14,6 @@ class WaiterController extends Controller
      */
     public function index()
     {
-        //
         $waiters = Waiter::all();
         return view('waiters.index',['waiters'=>$waiters]);
     }
@@ -54,7 +53,7 @@ class WaiterController extends Controller
         $waiter->password = password_hash($request->input("password"), PASSWORD_DEFAULT);
         $waiter->save();
 
-        return $this->index();
+        return redirect('waiters');
     }
 
     /**
@@ -102,7 +101,7 @@ class WaiterController extends Controller
         $waiter->login = $request->input("login");
         $waiter->save();
 
-        return $this->index();
+        return redirect('waiters');
     }
 
     /**
@@ -111,6 +110,6 @@ class WaiterController extends Controller
     public function destroy(Waiter $waiter)
     {
         $waiter->delete();
-        return $this->index();
+        return redirect('waiters');
     }
 }

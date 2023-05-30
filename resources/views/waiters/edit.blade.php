@@ -34,6 +34,11 @@
                 <td><input type="password" name="password"></td>
             </tr>
             <tr>
+                <td colspan="3">
+                    Jeśli nie chcesz zmieniać hasła, pozostaw je puste
+                </td>
+            </tr>
+            <tr>
                 <td><input type="submit" value="Zapisz zmiany"></td>
         </form>
         <form action="{{route('waiters.destroy', ["waiter"=>$waiter])}}" method="POST">
