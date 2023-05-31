@@ -68,7 +68,7 @@ a.button {
     padding: 0.25rem 0.5rem;
     background-color: #ddd;
     color: black;
-    border: 2px outset grey;
+    border: 1px outset black;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -442,10 +442,7 @@ p.mainNav__header + ul li a {
 .order-list-conteiner li {
     position: relative;
     display: block;
-    border-radius: 10px;
-    box-shadow: 0px 0px 3px gray;
     margin: 20px 0px;
-    padding: 10px;
 }
 
 .order-list-conteiner li h3 {
@@ -454,8 +451,16 @@ p.mainNav__header + ul li a {
     font-size: 1.3rem;
 }
 
-.order-list-conteiner li:hover {
+li.draggable > div:hover {
     box-shadow: 0px 0px 5px gray;
+}
+
+li.draggable > div {
+    box-shadow: 0px 0px 3px gray;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+    transition: 0.3s;
 }
 
 li.draggable .order-list-table {
@@ -475,7 +480,11 @@ li.draggable .order-list-table {
 }
 
 .order-list-table tr:nth-child(even) {
-    background-color: lightgray;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.order-list-table tr:nth-child(2) {
+    font-weight: 700;
 }
 
 .order-list-table td {
@@ -495,6 +504,7 @@ li.draggable .order-list-table {
     padding: 5px;
     box-shadow: 0px 0px 2px gray;
     text-align: center;
+    background: rgba(0, 0, 0, 0.03);
 }
 
 .order-status button,
@@ -565,4 +575,8 @@ li.draggable .order-list-table {
     display: inline-flex;
     margin-left: auto;
     gap: 1rem;
+}
+
+.text-center {
+    text-align: center;
 }

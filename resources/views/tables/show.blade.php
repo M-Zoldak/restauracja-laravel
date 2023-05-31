@@ -30,7 +30,7 @@
         <ul class="order-list-ul">
             @foreach ($table->orders as $order)
                 <li class="draggable" draggable="true">
-                    <div>
+                    <div class="{{ $controller::getOrderStatusClass($order->order_status) }}">
                         <a href="{{ route('orders.show', ['order' => $order]) }}">Szczegóły</a>
                         <h3>Zamówienie nr:{{ $order->id }}</h3>
                         <table class="order-list-table">
@@ -49,8 +49,10 @@
                             @endforeach
                         </table>
                         <div class="order-status">
-                            <p id="status{{ $order->id }}">{{ $controller::getOrderStatusString($order->order_status) }}</p>
-                            <button id="{{ $order->id }}" class="status-button">Zamówienie gotowe</button>
+                            <p id="status{{ $order->id }}">
+                                {{ $controller::getOrderStatusString($order->order_status) }}</p>
+                            <button id="{{ $order->id }}"
+                                class="status-button">{{ $controller::getOrderButtonStatusMessage($order->order_status) }}</button>
                             <div id="delete{{ $order->id }}" class="confirm-hidden">
                                 <form action="{{ route('orders.destroy', ['order' => $order]) }}" method="post">
                                     @csrf

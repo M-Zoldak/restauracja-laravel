@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -82,6 +83,9 @@ class TableController extends Controller
      */
     public function update(Request $request, Table $table)
     {
+        App::setLocale("PL_pl");
+        // dd($request);
+
         $validator = Validator::make($request->all(), [
             'table_number' => "required|unique:tables,table_number,$table->id|int|min:1",
             'places_count' => 'required|int|min:0'

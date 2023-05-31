@@ -12,4 +12,10 @@ class DishCategory extends Model
     protected $fillable = [
         'category_name',
     ];
+
+
+    public function dishes()
+    {
+        return $this->hasMany(Dish::class, 'category_id');
+    }
 }

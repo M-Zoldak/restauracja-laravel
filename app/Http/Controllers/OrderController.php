@@ -25,7 +25,7 @@ class OrderController extends Controller
     {
         $orders = Order::all();
         $tables = Table::all();
-        return view('orders.index', ['orders'=>$orders, 'tables'=>$tables]);
+        return view('orders.index', ['orders' => $orders, 'tables' => $tables]);
     }
 
     /**
@@ -37,9 +37,11 @@ class OrderController extends Controller
         $tableNr = $request->input("id");
         $dishes = Dish::all();
         $categories = DishCategory::all();
-        return view('orders.create',['dishes'=> $dishes,
-                                    'categories'=>$categories,
-                                    'tableNr'=> $tableNr]);
+        return view('orders.create', [
+            'dishes' => $dishes,
+            'categories' => $categories,
+            'tableNr' => $tableNr
+        ]);
     }
 
     /**
@@ -83,7 +85,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('orders.show',['order'=> $order]);
+        return view('orders.show', ['order' => $order]);
     }
 
     /**
@@ -107,8 +109,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        foreach($order->items as $orderItem)
-        {
+        foreach ($order->items as $orderItem) {
             $orderItem->delete();
         }
         $order->delete();
@@ -134,6 +135,34 @@ class OrderController extends Controller
                 return 'Delivered';
             default:
                 return 'Unknown';
+        }
+    }
+
+    public static function getOrderStatusClass(int $status): string
+    {
+        $status;
+        switch ($status) {
+            case OrderStatus::ready->value:
+                return 'order-ready';
+            case OrderStatus::delivered->value:
+                return 'order-delivered';
+            default:
+                return '';
+        }
+    }
+
+    public static function getOrderButtonStatusMessage(int $status): string
+    {
+        $status;
+        switch ($status) {
+            case OrderStatus::inProgress->value:
+                return 'Zamówienie gotowe';
+            case OrderStatus::ready->value:
+                return 'Dostarczono';
+            case OrderStatus::delivered->value:
+                return 'Usuń z listy';
+            default:
+                return '';
         }
     }
 }

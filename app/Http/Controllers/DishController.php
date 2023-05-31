@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\DishCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 
 class DishController extends Controller
@@ -14,9 +15,8 @@ class DishController extends Controller
      */
     public function index()
     {
-        $dishes = Dish::all();
         $categories = DishCategory::all();
-        return view('dishes.show',['dishes'=> $dishes, 'categories'=>$categories]);
+        return view('dishes.show', ['categories' => $categories]);
     }
 
     /**
@@ -25,7 +25,7 @@ class DishController extends Controller
     public function create()
     {
         $categories = DishCategory::all();
-        return view('dishes.create',['categories'=>$categories]);
+        return view('dishes.create', ['categories' => $categories]);
     }
 
     /**
@@ -33,6 +33,7 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale('pl');
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'ingredient' => 'required',
@@ -71,7 +72,7 @@ class DishController extends Controller
     public function edit(Dish $dish)
     {
         $categories = DishCategory::all();
-        return view('dishes.edit', ['dish'=>$dish, 'categories'=>$categories]);
+        return view('dishes.edit', ['dish' => $dish, 'categories' => $categories]);
     }
 
     /**
