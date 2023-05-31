@@ -165,4 +165,14 @@ class OrderController extends Controller
                 return '';
         }
     }
+
+
+    public static function getOrderTotalPrice($order)
+    {
+        $totalPrice = 0;
+        foreach ($order->items as $orderItem) {
+            $totalPrice += $orderItem->amount * $orderItem->meal->price;
+        }
+        return $totalPrice;
+    }
 }

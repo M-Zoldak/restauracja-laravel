@@ -15,18 +15,29 @@
                             <h3>Zamówienie nr:{{ $order->id }}</h3>
                             <table class="order-list-table">
                                 <tr>
-                                    <td>Dla stolika nr: </td>
-                                    <td>{{ $table->table_number }}</td>
+                                    <td>Stolika nr: <b>{{ $table->table_number }}</b></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Szczegóły zamówienia:</td>
                                 </tr>
-                                @foreach ($order->items as $orderItem)
-                                    <tr>
-                                        <td>{{ $orderItem->meal->name }}</td>
-                                        <td>{{ $orderItem->amount }}</td>
-                                    </tr>
-                                @endforeach
+                                <tr>
+                                    <td class="orders">
+                                        <ul>
+                                            @foreach ($order->items as $orderItem)
+                                                <li>
+                                                    <span>{{ $orderItem->amount }} x {{ $orderItem->meal->name }}</span>
+                                                    <span>{{ $orderItem->amount * $orderItem->meal->price }} zł</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="orders order_summary">
+                                        <span>Łącznie do zapłaty</span>
+                                        <span>{{ $controller::getOrderTotalPrice($order) }} zł</span>
+                                    </td>
+                                </tr>
                             </table>
                             <div class="order-status">
                                 <p id="status{{ $order->id }}">

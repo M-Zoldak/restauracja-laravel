@@ -442,7 +442,7 @@ p.mainNav__header + ul li a {
 .order-list-conteiner li {
     position: relative;
     display: block;
-    margin: 20px 0px;
+    margin-bottom: 10px;
 }
 
 .order-list-conteiner li h3 {
@@ -464,7 +464,7 @@ li.draggable > div {
 }
 
 li.draggable .order-list-table {
-    display: inline-block;
+    /* display: inline-block; */
     max-width: 50%;
 }
 
@@ -480,11 +480,12 @@ li.draggable .order-list-table {
 }
 
 .order-list-table tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.1);
 }
 
-.order-list-table tr:nth-child(2) {
+.order-list-table tr:nth-child(2) td {
     font-weight: 700;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .order-list-table td {
@@ -579,4 +580,15 @@ li.draggable .order-list-table {
 
 .text-center {
     text-align: center;
+}
+
+.orders ul li,
+.order_summary {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order_summary {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding-top: 10px !important;
 }
